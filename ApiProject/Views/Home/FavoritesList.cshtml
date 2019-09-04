@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "FavoritesList";
+}
+
+<h1>FavoritesList</h1>
+
+@model IEnumerable<Movie>
+
+@foreach(Movie movie in Model)
+{
+    @movie.Title
+}

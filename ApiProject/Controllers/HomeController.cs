@@ -50,33 +50,41 @@ namespace ApiProject.Controllers
         }
         public async Task<ActionResult<Movie>> AddToFavs(string imdbID)
         {
-            bool found = false;
             List<Favorites> favoritesList = _context.Favorites.ToList();
             int i = 0;
             //id is the current user's id
             string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            while (!found)
-            {
-                //if we find the user's id in the favorites list
-                if (favoritesList[i].UserId == id)
-                {
-                    //pull the movie id string from the found favorite
-                    string favoriteMovies = favoritesList[i].MovieId;
-                    //break out of the loop
-                    found = true;
-                }
-                else
-                //otherwis e, move to the next favorite
-                { i++; }
-            }
+            Favorites fav = new Favorites();
+            fav.MovieId = imdbID;
+            fav.UserId = id;
+            _context.Favorites.Add(fav);
+            _context.SaveChanges();
+            var results = await GetMovieById(imdbID);
+            return View(results);
         }
-        public async Task<ActionResult<Movies>> GetMovieById(string imdbID)
+
+        public async Task<ActionResult<List<Movie>>> FavoritesList()
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var somethingelse = _context.Favorites.Where(u => u.UserId == id).ToList();
+
+            List<Movie> userMovieList = new List<Movie>();
+            foreach (Favorites movie in somethingelse)
+            {
+                var currentMovie = await GetMovieById(movie.MovieId);
+                userMovieList.Add(currentMovie);
+            }
+
+            return View(userMovieList);
+
+        }
+        public async Task<Movie> GetMovieById(string imdbID)
         {
             var ApiKey = _configuration.GetSection("AppConfiguration")["APIKeyValue"];
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://www.omdbapi.com");
             var response = await client.GetAsync($"?i={imdbID}&apikey={ApiKey}");
-            var result = await response.Content.ReadAsAsync<Movies>();
+            var result = await response.Content.ReadAsAsync<Movie>();
             return result;
         }
     }

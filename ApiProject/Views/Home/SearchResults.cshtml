@@ -23,6 +23,7 @@
          
             <td>@movie.Title</td>
             <td>@movie.Year</td>
+            <td><a href="/Home/AddToFavs?imdbID=@movie.imdbID" class="btn">Add to favorites</a></td>
             <td><form asp-action="AddToFavs" asp-controller="Home" method="post">
                 <input type="hidden" name="@movie.imdbID" />
                 <input type="submit" value="Add to favorites"/>

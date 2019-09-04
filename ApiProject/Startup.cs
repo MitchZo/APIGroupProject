@@ -36,14 +36,12 @@ namespace ApiProject
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connection = "Server=.\\SQLExpress;Database=APIMovieDb;Trusted_Connection=True;ConnectRetryCount=0;";
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")))
                 .AddDbContext<APIMovieDbContext>(options => 
                 options.UseSqlServer(
-                    Configuration.GetConnectionString(connection)));
+                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
