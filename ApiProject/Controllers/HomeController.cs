@@ -50,14 +50,14 @@ namespace ApiProject.Controllers
         {
             
         }
-        public async Task<ActionResult<Movie>> GetMovieById(string imdbID)
+        public async Task<ActionResult<Movies>> GetMovieById(string imdbID)
         {
             var ApiKey = _configuration.GetSection("AppConfiguration")["APIKeyValue"];
             var client = new HttpClient();
-            var response = await client.GetAsync("http://www.omdbapi.com/?i={imdbID}&apikey={ApiKey}");
-            var jsonObject = await response.Content.ReadAsStringAsync();
-            Movie returnedMovie = JsonConvert.DeserializeObject<Movie>(jsonObject);
-            return returnedMovie;
+            client.BaseAddress = new Uri("http://www.omdbapi.com");
+            var response = await client.GetAsync($"?i={imdbID}&apikey={ApiKey}");
+            var result = await response.Content.ReadAsAsync<Movies>();
+            return result;
         }
     }
 }
