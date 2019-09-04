@@ -4,7 +4,7 @@
 }
 
 
-@model  IEnumerable<Movie>
+@model  ApiProject.Models.Movies
 
 
 <h1>SearchResults</h1>
@@ -16,7 +16,7 @@
         <th>Release Year</th>
     </tr>
     <tr>
-        @foreach(var movie in Model)
+        @foreach(var movie in Model.Search)
         {
         <td>@movie.Title</td>
         <td>@movie.Year</td>

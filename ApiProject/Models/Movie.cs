@@ -7,7 +7,7 @@ namespace ApiProject.Models
 {
     public class Movies
     {
-        public Movie[] movieArray { get; set; }
+        public Movie[] Search { get; set; }
     }
     public class Movie
     {
