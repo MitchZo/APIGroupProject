@@ -46,18 +46,18 @@ namespace ApiProject.Controllers
             var movies = JsonConvert.DeserializeObject<Movies>(something);
             return View(movies);
         }
-        public async Task<ActionResult<Movie>> AddToFavs()
+        public async Task<ActionResult<Movie>> AddToFavs(string imdbID)
         {
-
+            
         }
         public async Task<ActionResult<Movie>> GetMovieById(string imdbID)
         {
             var ApiKey = _configuration.GetSection("AppConfiguration")["APIKeyValue"];
             var client = new HttpClient();
             var response = await client.GetAsync("http://www.omdbapi.com/?i={imdbID}&apikey={ApiKey}");
-
-            Movie returnedMovie = JsonConvert.DeserializeObject<Movie>(response)
-            return response;
+            var jsonObject = await response.Content.ReadAsStringAsync();
+            Movie returnedMovie = JsonConvert.DeserializeObject<Movie>(jsonObject);
+            return returnedMovie;
         }
     }
 }
