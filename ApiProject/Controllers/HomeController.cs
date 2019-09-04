@@ -66,7 +66,7 @@ namespace ApiProject.Controllers
                     found = true;
                 }
                 else
-                //otherwise, move to the next favorite
+                //otherwis e, move to the next favorite
                 { i++; }
             }
         }
