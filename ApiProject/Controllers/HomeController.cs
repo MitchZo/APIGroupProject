@@ -15,10 +15,11 @@ namespace ApiProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Context
+        private readonly APIMovieDbContext _context;
         private readonly IConfiguration _configuration;
-        public HomeController(IConfiguration configuration)
+        public HomeController(APIMovieDbContext context, IConfiguration configuration)
         {
+            _context = context;
             _configuration = configuration;
         }
         public string baseAddress = "http://www.omdbapi.com";
@@ -46,6 +47,10 @@ namespace ApiProject.Controllers
             return View(movies);
         }
         public async Task<ActionResult<Movie>> AddToFavs()
+        {
+
+        }
+        public async Task<IActionResult> GetMovieById(string MovieId)
         {
             
         }
