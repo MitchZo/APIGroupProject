@@ -5,3 +5,21 @@
 
 <h1>AddToFavs</h1>
 
+@model ApiProject.Models.Movie
+
+<table type="table">
+    <th>
+        <td>Title</td>
+        <td>Year</td>
+        <td>Rated</td>
+        <td>Language</td>
+        <td>Genre</td>
+    </th>
+    @foreach(var favorite in Model.favorites)
+    {
+        <tr>@favorite.Title</tr>
+    }
+
+
+
+</table>
