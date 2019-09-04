@@ -7,11 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using ApiProject.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace ApiProject.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
+        public HomeController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public string baseAddress = "http://www.omdbapi.com";
         public async Task<IActionResult> Index()
         {
@@ -19,6 +25,8 @@ namespace ApiProject.Controllers
         }
         public async Task<ActionResult<Movie>> SearchResults(string Title, string ReleaseYear, string Rated, string Language, string Runtime, string Genre)
         {
+            var ApiKey = _configuration.GetSection("AppConfiguration")["APIKeyValue"];
+
             var client = new HttpClient();
             string searchAddress = "";
             if (Title != null)
