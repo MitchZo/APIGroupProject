@@ -15,12 +15,17 @@
         <th>Movie Title</th>
         <th>Release Year</th>
     </tr>
-    <tr>
-        @foreach(var movie in Model.Search)
-        {
+    @foreach(var movie in Model.Search)
+    {
+     <tr>
+         
         <td>@movie.Title</td>
         <td>@movie.Year</td>
-        <td><form asp-action="AddToFavs" asp-controller="Home" method="post"><input type="submit" name="Add"/></form></td>
-        }
+        <td><form asp-action="AddToFavs" asp-controller="Home" method="post">
+            <input type="hidden" name="@movie.imdbID" />
+            <input type="submit" value="Add to favorites"/>
+            </form>
+         </td>
     </tr>
+    }
 </table>
