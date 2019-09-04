@@ -1,25 +1,27 @@
 ﻿
 @{
-    ViewData["Title"] = "AddToFavs";
+    ViewData["Title"] = "Favorites list";
 }
 
-<h1>AddToFavs</h1>
+<h1>Favorites list</h1>
 
-@model ApiProject.Models.Movie
+@model ApiProject.Models.Movies
 
 <table type="table">
-    <th>
-    <td>Title</td>
-    <td>Year</td>
-    <td>Rated</td>
-    <td>Language</td>
-    <td>Genre</td>
-    </th>
-    @foreach (var favorite in Model.favorites)
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Rated</th>
+        <th>Language</th>
+        <th>Genre</th>
+    </tr>
+    @foreach (var favorite in Model.FavoritesArray)
     {
-        <tr>@favorite.Title</tr>
-        <tr>@favorite.ReleaseYear</tr>
-        <tr>@favorite.Rated</tr>
-        <tr>@favorite.Language</tr>
+        <tr>
+            <td>@favorite.Title</td>
+            <td>@favorite.Released</td>
+            <td>@favorite.Rated</td>
+            <td>@favorite.Language</td>
+        </tr>
     }
 </table>
