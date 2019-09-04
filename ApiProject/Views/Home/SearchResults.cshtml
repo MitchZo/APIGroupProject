@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "SearchResults";
+}
+
+
+@model  IEnumerable<Movie>
+
+
+<h1>SearchResults</h1>
+
+<table class="table table-bordered table table-hover">
+
+    <tr>
+        <th>Movie Title</th>
+        <th>Release Year</th>
+    </tr>
+    <tr>
+        @foreach(var movie in Model)
+        {
+        <td>@movie.Title</td>
+        <td>@movie.Year</td>
+        <td><form asp-action="AddToFavs" asp-controller="Home" method="post"><input type="submit" name="Add"/></form></td>
+        }
+    </tr>
+</table>
