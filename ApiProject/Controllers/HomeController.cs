@@ -44,5 +44,9 @@ namespace ApiProject.Controllers
             var movies = JsonConvert.DeserializeObject<Movies>(something);
             return View(movies);
         }
+        public async Task<ActionResult<Movie>> AddToFavs()
+        {
+            
+        }
     }
 }
