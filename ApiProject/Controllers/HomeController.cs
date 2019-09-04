@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols;
 using System.Configuration;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace ApiProject.Controllers
 {
@@ -48,7 +50,25 @@ namespace ApiProject.Controllers
         }
         public async Task<ActionResult<Movie>> AddToFavs(string imdbID)
         {
-            
+            bool found = false;
+            List<Favorites> favoritesList = _context.Favorites.ToList();
+            int i = 0;
+            //id is the current user's id
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            while (!found)
+            {
+                //if we find the user's id in the favorites list
+                if (favoritesList[i].UserId == id)
+                {
+                    //pull the movie id string from the found favorite
+                    string favoriteMovies = favoritesList[i].MovieId;
+                    //break out of the loop
+                    found = true;
+                }
+                else
+                //otherwise, move to the next favorite
+                { i++; }
+            }
         }
         public async Task<ActionResult<Movies>> GetMovieById(string imdbID)
         {
