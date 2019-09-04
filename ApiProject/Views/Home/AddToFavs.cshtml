@@ -9,17 +9,17 @@
 
 <table type="table">
     <th>
-        <td>Title</td>
-        <td>Year</td>
-        <td>Rated</td>
-        <td>Language</td>
-        <td>Genre</td>
+    <td>Title</td>
+    <td>Year</td>
+    <td>Rated</td>
+    <td>Language</td>
+    <td>Genre</td>
     </th>
-    @foreach(var favorite in Model.favorites)
+    @foreach (var favorite in Model.favorites)
     {
         <tr>@favorite.Title</tr>
+        <tr>@favorite.ReleaseYear</tr>
+        <tr>@favorite.Rated</tr>
+        <tr>@favorite.Language</tr>
     }
-
-
-
 </table>

@@ -8,7 +8,9 @@ namespace ApiProject.Models
     public class Movies
     {
         public Movie[] Search { get; set; }
+        public Movie[] FavoritesArray { get; set; }
     }
+
     public class Movie
     {
         public string Title { get; set; }
